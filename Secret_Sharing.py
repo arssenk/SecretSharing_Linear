@@ -7,6 +7,7 @@ from Teacher import Teacher
 
 class Secret:
     def __init__(self, secret):
+        self.secret = secret
         self.start_time = time.time()
         binary_string = self.convert_to_binary(secret)
         self.lst_of_vectors, self.lst_of_teachers, self.__lst_of_keys = self.encode(binary_string)
@@ -38,19 +39,21 @@ class Secret:
                 vectors[0][1]).dot(numpy.array(u)) != secret[1]):
             u = [random.randint(0, 1) for _ in range(6)]
             elapsed_time = time.time() - self.start_time
-            if elapsed_time > 1:
+            if elapsed_time > self.func(self.secret):
                 import main
-                print("Restarting", )
+                print("Restarting")
                 main.main()
                 quit()
 
         return u, vectors
 
+    def func(self, input_str):
+        return numpy.math.sqrt(len(input_str)) / 2
+
     def convert_to_binary(self, string_input):
         lst_of_binaries = []
         for letter in string_input:
             lst_of_binaries.append((10 - len(bin(ord(letter)))) * '0' + bin(ord(letter))[2:])
-        print(lst_of_binaries, "BINARY")
         return lst_of_binaries
 
     def genetare_vect_a(self, number=10, size=6):

@@ -3,7 +3,7 @@ from Decoder import DecodeASecret
 
 def main():
 
-    sectet = Secret("Hello World")
+    sectet = Secret("Hello world")
     decoder = DecodeASecret(sectet.lst_of_vectors, sectet.lst_of_teachers)
     print(decoder.output(decoder.decode()))
 
