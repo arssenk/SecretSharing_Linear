@@ -38,10 +38,11 @@ class Secret:
                 vectors[0][1]).dot(numpy.array(u)) != secret[1]):
             u = [random.randint(0, 1) for _ in range(6)]
             elapsed_time = time.time() - self.start_time
-            if elapsed_time > 2:
+            if elapsed_time > 1:
                 import main
-                print("Restarting")
+                print("Restarting", )
                 main.main()
+                quit()
 
         return u, vectors
 

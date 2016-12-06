@@ -3,9 +3,9 @@ from Decoder import DecodeASecret
 
 def main():
 
-    sectet = Secret("H")
+    sectet = Secret("Hello World")
     decoder = DecodeASecret(sectet.lst_of_vectors, sectet.lst_of_teachers)
-    decoder.decode()
+    print(decoder.output(decoder.decode()))
 
 
 if __name__ == '__main__':
