@@ -1,7 +1,7 @@
 import numpy
 import random
 import work_with_matrix
-
+import sympy
 
 class DecodeASecret:
     def __init__(self, vectors, lst_of_teachers):
@@ -17,18 +17,24 @@ class DecodeASecret:
                 tmp_matrix.extend(letter[teacher])
                 vector.extend(teacher_1[teacher - 1].get_code())
             tmp_matrix = self.merge(tmp_matrix, vector)
-            ans = self.get_value(work_with_matrix.to_reduced_row_echelon_form(tmp_matrix))
+            ans = [int(el) for el in sympy.Matrix(tmp_matrix).rref()[0].col(-1)]
             code.append([numpy.array(ans).dot(letter[0][0]),
                          numpy.array(ans).dot(letter[0][1])])
         return code
 
     def output(self, code):
-        output = ""
-        for i in range(0, len(code) - 3, 4):
-            k = ''
-            for arg in code[i:i + 4]:
-                k += str(int(arg[0])) + str(int(arg[1]))
-            output += chr(int(k, 2))
+        try:
+            output = ""
+            for i in range(0, len(code) - 3, 4):
+                k = ''
+                for arg in code[i:i + 4]:
+                    k += str(int(arg[0])) + str(int(arg[1]))
+                output += chr(int(k, 2))
+        except ValueError:
+            import main
+            print("Restarting!")
+            main.main()
+            quit()
         return output
 
     def merge(self, matrix, vactor):

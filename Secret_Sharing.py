@@ -12,9 +12,6 @@ class Secret:
 
         binary_string = self.convert_to_binary(secret)
         self.lst_of_vectors, self.lst_of_teachers, self.__lst_of_keys = self.encode(binary_string)
-        exampl_teachers = [tea.get_code() for tea in self.lst_of_teachers[0]]
-        print("Example vector", self.lst_of_vectors[0], "Example of teachers", exampl_teachers, "KEY",
-              self.__lst_of_keys[0])
 
     def encode(self, lst_of_binaries):
         lst_of_vecotrs = []
@@ -41,7 +38,7 @@ class Secret:
                 vectors[0][1]).dot(numpy.array(u)) != secret[1]):
             u = [random.randint(0, 1) for _ in range(6)]
             elapsed_time = time.time() - self.start_time
-            if elapsed_time > 0.15:
+            if elapsed_time > 0.007:
                 return self.encode_and_get_key_and_vectors(secret)
         return u, vectors
 

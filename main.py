@@ -1,9 +1,9 @@
-from Secret_Sharing import Secret
 from Decoder import DecodeASecret
+from Secret_Sharing import Secret
+
 
 def main():
-
-    sectet = Secret("Hallo bastards, i'm back! And i am after you!")
+    sectet = Secret("Hellosssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
     decoder = DecodeASecret(sectet.lst_of_vectors, sectet.lst_of_teachers)
     print(decoder.output(decoder.decode()))
 
