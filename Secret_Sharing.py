@@ -1,14 +1,15 @@
 import random
-import numpy
 import time
-import work_with_matrix
+
+import numpy
+
 from Teacher import Teacher
 
 
 class Secret:
     def __init__(self, secret):
         self.secret = secret
-        self.start_time = time.time()
+
         binary_string = self.convert_to_binary(secret)
         self.lst_of_vectors, self.lst_of_teachers, self.__lst_of_keys = self.encode(binary_string)
         exampl_teachers = [tea.get_code() for tea in self.lst_of_teachers[0]]
@@ -34,21 +35,15 @@ class Secret:
     def encode_and_get_key_and_vectors(self,
                                        secret):  # Ще цю протестуй тут я підбираю вектор, який би дорівнював секретам.
         u = [1, 1, 1, 1, 1, 1]
+        self.start_time = time.time()
         vectors = self.genetare_vect_a()
         while (numpy.array(vectors[0][0]).dot(numpy.array(u)) != secret[0]) or (numpy.array(
                 vectors[0][1]).dot(numpy.array(u)) != secret[1]):
             u = [random.randint(0, 1) for _ in range(6)]
             elapsed_time = time.time() - self.start_time
-            if elapsed_time > self.func(self.secret):
-                import main
-                print("Restarting")
-                main.main()
-                quit()
-
+            if elapsed_time > 0.15:
+                return self.encode_and_get_key_and_vectors(secret)
         return u, vectors
-
-    def func(self, input_str):
-        return numpy.math.sqrt(len(input_str)) / 2
 
     def convert_to_binary(self, string_input):
         lst_of_binaries = []
@@ -57,7 +52,6 @@ class Secret:
         return lst_of_binaries
 
     def genetare_vect_a(self, number=10, size=6):
-        # while not self.check_independency(vectors):
         vectors = [[[], []], [[], []], [[], []], [[], []], [[], []]]
         while not self.check_independency(vectors):
             vectors = [[[], []], [[], []], [[], []], [[], []], [[], []]]
@@ -81,5 +75,3 @@ class Secret:
 
     def determinant(self, matrix):
         return numpy.linalg.det(matrix)
-
-# print(a.__genetare_vect_a(10, 6))#Перевір цей виклик, він повертає 1 векторів, треба забити в калькулятор і перевірити чи 2,3,4; 2,3,5; 2,4,5; 3,4,5
