@@ -1,6 +1,5 @@
 import numpy
 import random
-import work_with_matrix
 import sympy
 
 class DecodeASecret:
@@ -32,8 +31,7 @@ class DecodeASecret:
                 output += chr(int(k, 2))
         except ValueError:
             import main
-            print("Restarting!")
-            main.main()
+            main.main(main.back_up_secret)
             quit()
         return output
 
